@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { userSignupRequest } from '../../actionCreators/userActionCreator';
 
 class SignupPage extends Component {
   state = {
@@ -18,6 +21,7 @@ class SignupPage extends Component {
 
   onFormSubmit = e => {
     e.preventDefault();
+    this.props.userSignupRequest(this.state.data);
   };
 
   render() {
@@ -80,4 +84,11 @@ class SignupPage extends Component {
   }
 }
 
-export default SignupPage;
+SignupPage.propTypes = {
+  userSignupRequest: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { userSignupRequest }
+)(SignupPage);
