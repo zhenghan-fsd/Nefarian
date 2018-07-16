@@ -1,8 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 import userRouter from './routes/userRoute';
 
 const app = express();
+
+mongoose.connect('mongodb://localhost/nefarian');
 
 app.use(bodyParser.json());
 

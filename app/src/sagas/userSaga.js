@@ -21,7 +21,7 @@ export function* userSignupSaga(action) {
 export function* userLoginSaga(action) {
   try {
     const user = yield call(userApi.login, action.user);
-    localStorage.conanJWT = user.token;
+    localStorage.nefarian = user.token;
     yield put(userLoginSuccess(user));
     history.push('/dashboard');
   } catch (err) {
