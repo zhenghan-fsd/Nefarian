@@ -1,24 +1,36 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const UserSchema = new mongoose.Schema(
   {
-    userEmail: { type: String, required: true, lowercase: true, index: true },
-    userName: { type: String, required: true },
-    userPassword: { type: String, required: true }
+    email: {
+      type: String,
+      required: true,
+      lowercase: true,
+      index: true,
+      unique: true
+    },
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    confirmed: { type: Boolean, default: false }
   },
   { timestamps: true }
 );
 
-UserSchema.methods.isValidPassword = function isValidPassword(userPassword) {
-  return bcrypt.compareSync(userPassword, this.userPassword);
+UserSchema.methods.setPassword = function setPassword(password) {
+  this.password = bcrypt.hashSync(password, 10);
+};
+
+UserSchema.methods.isValidPassword = function isValidPassword(password) {
+  return bcrypt.compareSync(password, this.password);
 };
 
 UserSchema.methods.generateToken = function generateToken() {
   return jwt.sign(
     {
-      userEmail: this.userEmail
+      email: this.email
     },
     'jwtsecret'
   );
@@ -26,10 +38,13 @@ UserSchema.methods.generateToken = function generateToken() {
 
 UserSchema.methods.userLoginResJson = function userLoginResJson() {
   return {
-    userEmail: this.userEmail,
-    userName: this.userName,
+    email: this.email,
+    username: this.username,
+    confirmed: this.confirmed,
     token: this.generateToken()
   };
 };
+
+UserSchema.plugin(uniqueValidator, { message: 'Email is already taken.' });
 
 export default mongoose.model('User', UserSchema);

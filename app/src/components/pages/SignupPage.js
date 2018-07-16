@@ -6,9 +6,9 @@ import { userSignupRequest } from '../../actionCreators/userActionCreator';
 class SignupPage extends Component {
   state = {
     data: {
-      userName: '',
-      userEmail: '',
-      userPassword: ''
+      username: '',
+      email: '',
+      password: ''
     },
     errors: {}
   };
@@ -25,22 +25,22 @@ class SignupPage extends Component {
   };
 
   render() {
-    const { userName, userEmail, userPassword } = this.state.data;
+    const { username, email, password } = this.state.data;
     return (
       <div className="card">
         <div className="card-body">
           <form onSubmit={this.onFormSubmit}>
             <div className="form-group">
-              <label htmlFor="exampleInputUserName">User Name</label>
+              <label htmlFor="exampleInputusername">User Name</label>
               <input
                 type="text"
                 className="form-control"
-                id="exampleInputUserName"
+                id="exampleInputusername"
                 aria-describedby="emailHelp"
                 placeholder="User Name"
-                name="userName"
+                name="username"
                 onChange={this.onTextFieldChange}
-                value={userName}
+                value={username}
               />
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
@@ -54,9 +54,9 @@ class SignupPage extends Component {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
-                name="userEmail"
+                name="email"
                 onChange={this.onTextFieldChange}
-                value={userEmail}
+                value={email}
               />
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
@@ -69,9 +69,9 @@ class SignupPage extends Component {
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
-                name="userPassword"
+                name="password"
                 onChange={this.onTextFieldChange}
-                value={userPassword}
+                value={password}
               />
             </div>
             <button type="submit" className="btn btn-primary">

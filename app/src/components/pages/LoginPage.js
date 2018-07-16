@@ -6,8 +6,8 @@ import { userLoginRequest } from '../../actionCreators/userActionCreator';
 class LoginPage extends Component {
   state = {
     data: {
-      userEmail: '',
-      userPassword: ''
+      email: '',
+      password: ''
     },
     errors: {}
   };
@@ -24,7 +24,7 @@ class LoginPage extends Component {
   };
 
   render() {
-    const { userEmail, userPassword } = this.state.data;
+    const { email, password } = this.state.data;
     return (
       <div className="card">
         <div className="card-body">
@@ -37,8 +37,8 @@ class LoginPage extends Component {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
-                name="userEmail"
-                value={userEmail}
+                name="email"
+                value={email}
                 onChange={this.onTextFieldChange}
               />
               <small id="emailHelp" className="form-text text-muted">
@@ -52,8 +52,8 @@ class LoginPage extends Component {
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
-                name="userPassword"
-                value={userPassword}
+                name="password"
+                value={password}
                 onChange={this.onTextFieldChange}
               />
             </div>
