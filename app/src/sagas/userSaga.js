@@ -3,7 +3,8 @@ import {
   userSignupSuccess,
   userSignupFailure,
   userLoginSuccess,
-  userLoginFailure
+  userLoginFailure,
+  userLogoutSuccess
 } from '../actionCreators/userActionCreator';
 import userApi from '../apis/userApi';
 import history from '../history';
@@ -27,4 +28,10 @@ export function* userLoginSaga(action) {
   } catch (err) {
     yield put(userLoginFailure(err.response.data.errors));
   }
+}
+
+export function* userLogoutSaga() {
+  localStorage.removeItem('nefarian');
+  yield put(userLogoutSuccess());
+  history.push('/login');
 }

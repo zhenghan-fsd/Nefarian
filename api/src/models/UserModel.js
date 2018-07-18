@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema(
     },
     username: { type: String, required: true },
     password: { type: String, required: true },
-    confirmed: { type: Boolean, default: false }
+    confirmed: { type: Boolean, default: false },
+    emailConfirmation: { type: String, default: '' }
   },
   { timestamps: true }
 );
@@ -34,6 +35,16 @@ UserSchema.methods.generateToken = function generateToken() {
     },
     'jwtsecret'
   );
+};
+
+UserSchema.methods.setEmailConfirmation = function setEmailConfirmation() {
+  this.emailConfirmation = this.generateToken();
+};
+
+UserSchema.methods.generateEmailConfirmationUrl = function setEmailConfirmation() {
+  return `${process.env.HOST}:${process.env.PORT}/api/user/confirmation/${
+    this.emailConfirmation
+  }`;
 };
 
 UserSchema.methods.userLoginResJson = function userLoginResJson() {

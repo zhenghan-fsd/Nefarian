@@ -10,8 +10,12 @@ class SignupPage extends Component {
       email: '',
       password: ''
     },
-    errors: {}
+    errors: this.props.errors
   };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ errors: nextProps.errors });
+  }
 
   onTextFieldChange = e => {
     this.setState({
@@ -50,7 +54,11 @@ class SignupPage extends Component {
               <label htmlFor="exampleInputEmail1">Email address</label>
               <input
                 type="email"
-                className="form-control"
+                className={
+                  this.state.errors.email
+                    ? 'form-control is-invalid'
+                    : 'form-control'
+                }
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
@@ -58,6 +66,7 @@ class SignupPage extends Component {
                 onChange={this.onTextFieldChange}
                 value={email}
               />
+              <div className="invalid-feedback">{this.state.errors.email}</div>
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
               </small>
@@ -85,10 +94,25 @@ class SignupPage extends Component {
 }
 
 SignupPage.propTypes = {
-  userSignupRequest: PropTypes.func.isRequired
+  userSignupRequest: PropTypes.func.isRequired,
+  errors: PropTypes.shape({
+    signup: PropTypes.shape({
+      email: PropTypes.string
+    })
+  })
 };
 
+SignupPage.defaultProps = {
+  errors: {}
+};
+
+function mapStateToProps(state) {
+  return {
+    errors: state.apiError.signup
+  };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { userSignupRequest }
 )(SignupPage);

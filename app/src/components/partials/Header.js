@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { userLogoutRequest } from '../../actionCreators/userActionCreator';
 
-const Header = ({ isLogin }) => (
+const Header = ({ isLogin, userLogoutRequest }) => (
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
     <a className="navbar-brand" href="#">
       Navbar
@@ -50,11 +51,8 @@ const Header = ({ isLogin }) => (
               <div className="dropdown-divider" />
               <Link
                 className="dropdown-item"
-                to="/"
-                onClick={() => {
-                  localStorage.removeItem('nefarian');
-                  console.log('App logout');
-                }}
+                to="/login"
+                onClick={userLogoutRequest}
               >
                 Logout
               </Link>
@@ -80,7 +78,8 @@ const Header = ({ isLogin }) => (
 );
 
 Header.propTypes = {
-  isLogin: PropTypes.bool.isRequired
+  isLogin: PropTypes.bool.isRequired,
+  userLogoutRequest: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -89,4 +88,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(
+  mapStateToProps,
+  { userLogoutRequest }
+)(Header);
