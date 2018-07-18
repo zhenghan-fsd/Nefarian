@@ -96,9 +96,7 @@ class SignupPage extends Component {
 SignupPage.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   errors: PropTypes.shape({
-    signup: PropTypes.shape({
-      email: PropTypes.string
-    })
+    email: PropTypes.string
   })
 };
 

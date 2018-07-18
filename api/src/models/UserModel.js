@@ -31,7 +31,9 @@ UserSchema.methods.isValidPassword = function isValidPassword(password) {
 UserSchema.methods.generateToken = function generateToken() {
   return jwt.sign(
     {
-      email: this.email
+      email: this.email,
+      username: this.username,
+      confirmed: this.confirmed
     },
     'jwtsecret'
   );
@@ -42,9 +44,7 @@ UserSchema.methods.setEmailConfirmation = function setEmailConfirmation() {
 };
 
 UserSchema.methods.generateEmailConfirmationUrl = function setEmailConfirmation() {
-  return `${process.env.HOST}:${process.env.PORT}/api/user/confirmation/${
-    this.emailConfirmation
-  }`;
+  return `${process.env.WEB_HOST}/confirmation/${this.emailConfirmation}`;
 };
 
 UserSchema.methods.userLoginResJson = function userLoginResJson() {

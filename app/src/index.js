@@ -6,6 +6,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { Router, Route } from 'react-router-dom';
+import decode from 'jwt-decode';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import user from './reducers/userRecuder';
@@ -29,7 +30,15 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 if (localStorage.nefarian) {
-  store.dispatch(userLoginSuccess({ token: localStorage.nefarian }));
+  const payload = decode(localStorage.nefarian);
+  store.dispatch(
+    userLoginSuccess({
+      token: localStorage.nefarian,
+      confirmed: payload.confirmed,
+      email: payload.email,
+      username: payload.username
+    })
+  );
 }
 
 ReactDOM.render(

@@ -6,6 +6,7 @@ import HomePage from './components/pages/HomePage';
 import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import DashboardPage from './components/pages/DashboardPage';
+import ConfirmationPage from './components/pages/ConfirmationPage';
 
 import UserRoute from './components/routes/UserRoute';
 import GuestRoute from './components/routes/GuestRoute';
@@ -31,6 +32,12 @@ const App = ({ location }) => (
         exact
         path="/dashboard"
         component={DashboardPage}
+      />
+      <Route
+        location={location}
+        exact
+        path="/confirmation/:token"
+        component={ConfirmationPage}
       />
       <Route location={location} exact path="/" component={HomePage} />
     </div>

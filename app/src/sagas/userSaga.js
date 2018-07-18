@@ -4,7 +4,9 @@ import {
   userSignupFailure,
   userLoginSuccess,
   userLoginFailure,
-  userLogoutSuccess
+  userLogoutSuccess,
+  userConfirmEmailSuccess,
+  userConfirmEmailFailure
 } from '../actionCreators/userActionCreator';
 import userApi from '../apis/userApi';
 import history from '../history';
@@ -34,4 +36,14 @@ export function* userLogoutSaga() {
   localStorage.removeItem('nefarian');
   yield put(userLogoutSuccess());
   history.push('/login');
+}
+
+export function* userConfirmEmailSaga(action) {
+  try {
+    const user = yield call(userApi.confirm, action.token);
+    localStorage.nefarian = user.token;
+    yield put(userLoginSuccess(user));
+  } catch (err) {
+    yield put(userConfirmEmailFailure(err.response.data.errors));
+  }
 }

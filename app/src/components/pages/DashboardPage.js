@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ConfirmEmailPage from './ConfirmEmailPage';
 
 const DashboardPage = ({ isConfirmed }) => {
-  return <div>{!isConfirmed && <ConfirmEmailPage />}</div>;
+  return (
+    <div>
+      {!isConfirmed && (
+        <div className="alert alert-info" role="alert">
+          <h4 className="alert-heading">Well done!</h4>
+          <p>Please verify your email.</p>
+        </div>
+      )}
+    </div>
+  );
 };
 
 DashboardPage.propTypes = {

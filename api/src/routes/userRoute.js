@@ -35,4 +35,20 @@ router.post('/login', async (req, res) => {
   res.json({ user: user.userLoginResJson() });
 });
 
+router.post('/confirm', async (req, res) => {
+  const token = req.body.token;
+  const user = await User.findOneAndUpdate(
+    { emailConfirmation: token },
+    { confirmed: true },
+    { new: true }
+  );
+
+  if (!user) {
+    res.status(400).json({ errors: { global: 'Invalid Confirm Token' } });
+    return;
+  }
+
+  res.json({ user: user.userLoginResJson() });
+});
+
 export default router;

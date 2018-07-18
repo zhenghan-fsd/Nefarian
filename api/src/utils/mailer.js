@@ -31,7 +31,6 @@ export const sendConfirmationEmail = user => {
     from: '"Nefarian Team" <zhus8251@163.com>',
     to: user.email,
     subject: 'Nefarian Account verrification instructions',
-    text: `Hey ${user.username}, Please verify your account with us...`,
     html: emailTemplate(user)
   };
 

@@ -7,7 +7,9 @@ import {
   USER_LOGIN_FAILURE,
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
-  USER_LOGOUT_FAILURE
+  USER_CONFIRM_EMAIL_REQUEST,
+  USER_CONFIRM_EMAIL_SUCCESS,
+  USER_CONFIRM_EMAIL_FAILURE
 } from '../actionTypes';
 
 export const userSignupRequest = user => ({ type: USER_SIGNUP_REQUEST, user });
@@ -26,3 +28,15 @@ export const userLoginFailure = errors => ({
 
 export const userLogoutRequest = () => ({ type: USER_LOGOUT_REQUEST });
 export const userLogoutSuccess = () => ({ type: USER_LOGOUT_SUCCESS });
+
+export const userConfirmEmailRequest = token => ({
+  type: USER_CONFIRM_EMAIL_REQUEST,
+  token
+});
+export const userConfirmEmailSuccess = () => ({
+  type: USER_CONFIRM_EMAIL_SUCCESS
+});
+export const userConfirmEmailFailure = errors => ({
+  type: USER_CONFIRM_EMAIL_FAILURE,
+  errors
+});
