@@ -15,6 +15,8 @@ router.post('/signup', async (req, res) => {
     sendConfirmationEmail(result);
     res.json(result.userLoginResJson());
   } catch (err) {
+    console.log(err);
+    console.log(errorParser(err.errors));
     res.status(400).json({ errors: errorParser(err.errors) });
   }
 });
@@ -23,12 +25,12 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body.user;
   const user = await User.findOne({ email });
   if (!user) {
-    res.status(400).json({ errors: { global: 'User not found.' } });
+    res.status(400).json({ errors: { email: 'Invalid Email.' } });
     return;
   }
 
   if (!user.isValidPassword(password)) {
-    res.status(400).json({ errors: { global: 'Password error.' } });
+    res.status(400).json({ errors: { password: 'Password error.' } });
     return;
   }
 

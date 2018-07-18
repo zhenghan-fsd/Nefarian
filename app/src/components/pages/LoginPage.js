@@ -12,6 +12,10 @@ class LoginPage extends Component {
     errors: {}
   };
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ errors: nextProps.errors });
+  }
+
   onTextFieldChange = e => {
     this.setState({
       data: { ...this.state.data, [e.target.name]: e.target.value }
@@ -33,7 +37,11 @@ class LoginPage extends Component {
               <label htmlFor="exampleInputEmail1">Email address</label>
               <input
                 type="email"
-                className="form-control"
+                className={
+                  this.state.errors.email
+                    ? 'form-control is-invalid'
+                    : 'form-control'
+                }
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
@@ -41,6 +49,7 @@ class LoginPage extends Component {
                 value={email}
                 onChange={this.onTextFieldChange}
               />
+              <div className="invalid-feedback">{this.state.errors.email}</div>
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
               </small>
@@ -49,13 +58,20 @@ class LoginPage extends Component {
               <label htmlFor="exampleInputPassword1">Password</label>
               <input
                 type="password"
-                className="form-control"
+                className={
+                  this.state.errors.password
+                    ? 'form-control is-invalid'
+                    : 'form-control'
+                }
                 id="exampleInputPassword1"
                 placeholder="Password"
                 name="password"
                 value={password}
                 onChange={this.onTextFieldChange}
               />
+              <div className="invalid-feedback">
+                {this.state.errors.password}
+              </div>
             </div>
             <button type="submit" className="btn btn-primary">
               Submit
@@ -68,10 +84,22 @@ class LoginPage extends Component {
 }
 
 LoginPage.propTypes = {
-  userLoginRequest: PropTypes.func.isRequired
+  userLoginRequest: PropTypes.func.isRequired,
+  errors: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string
+  })
 };
 
+LoginPage.defaultProps = {
+  errors: {}
+};
+
+function mapStateToProps(state) {
+  return { errors: state.apiError.login };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { userLoginRequest }
 )(LoginPage);

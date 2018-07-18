@@ -38,7 +38,11 @@ class SignupPage extends Component {
               <label htmlFor="exampleInputusername">User Name</label>
               <input
                 type="text"
-                className="form-control"
+                className={
+                  this.state.errors.username
+                    ? 'form-control is-invalid'
+                    : 'form-control'
+                }
                 id="exampleInputusername"
                 aria-describedby="emailHelp"
                 placeholder="User Name"
@@ -46,6 +50,9 @@ class SignupPage extends Component {
                 onChange={this.onTextFieldChange}
                 value={username}
               />
+              <div className="invalid-feedback">
+                {this.state.errors.username}
+              </div>
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
               </small>
@@ -96,7 +103,8 @@ class SignupPage extends Component {
 SignupPage.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   errors: PropTypes.shape({
-    email: PropTypes.string
+    email: PropTypes.string,
+    username: PropTypes.string
   })
 };
 

@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema(
       index: true,
       unique: true
     },
-    username: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     confirmed: { type: Boolean, default: false },
     emailConfirmation: { type: String, default: '' }
@@ -56,6 +56,8 @@ UserSchema.methods.userLoginResJson = function userLoginResJson() {
   };
 };
 
-UserSchema.plugin(uniqueValidator, { message: 'Email is already taken.' });
+UserSchema.plugin(uniqueValidator, {
+  message: '{PATH} has already been taken.'
+});
 
 export default mongoose.model('User', UserSchema);
