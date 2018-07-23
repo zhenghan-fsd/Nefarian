@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { userLoginRequest } from '../../actionCreators/userActionCreator';
+import { userForgotPasswordRequest } from '../../actionCreators/userActionCreator';
 
-class LoginPage extends Component {
+class ForgotPasswordPage extends Component {
   state = {
     data: {
-      email: '',
-      password: ''
+      email: ''
     },
     errors: {}
   };
@@ -17,19 +15,21 @@ class LoginPage extends Component {
     this.setState({ errors: nextProps.errors });
   }
 
+  onFormSubmit = e => {
+    e.preventDefault();
+
+    this.props.userForgotPasswordRequest(this.state.data.email);
+  };
+
   onTextFieldChange = e => {
     this.setState({
       data: { ...this.state.data, [e.target.name]: e.target.value }
     });
   };
 
-  onFormSubmit = e => {
-    e.preventDefault();
-    this.props.userLoginRequest(this.state.data);
-  };
-
   render() {
-    const { email, password } = this.state.data;
+    const { email } = this.state.data;
+
     return (
       <div className="card">
         <div className="card-body">
@@ -55,30 +55,9 @@ class LoginPage extends Component {
                 We'll never share your email with anyone else.
               </small>
             </div>
-            <div className="form-group">
-              <label htmlFor="exampleInputPassword1">Password</label>
-              <input
-                type="password"
-                className={
-                  this.state.errors.password
-                    ? 'form-control is-invalid'
-                    : 'form-control'
-                }
-                id="exampleInputPassword1"
-                placeholder="Password"
-                name="password"
-                value={password}
-                onChange={this.onTextFieldChange}
-              />
-              <div className="invalid-feedback">
-                {this.state.errors.password}
-              </div>
-            </div>
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
-            <br />
-            <Link to="/forgot_password">Forgot Password</Link>
           </form>
         </div>
       </div>
@@ -86,23 +65,24 @@ class LoginPage extends Component {
   }
 }
 
-LoginPage.propTypes = {
-  userLoginRequest: PropTypes.func.isRequired,
+ForgotPasswordPage.propTypes = {
+  userForgotPasswordRequest: PropTypes.func.isRequired,
   errors: PropTypes.shape({
-    email: PropTypes.string,
-    password: PropTypes.string
+    email: PropTypes.string
   })
 };
 
-LoginPage.defaultProps = {
+ForgotPasswordPage.defaultProps = {
   errors: {}
 };
 
 function mapStateToProps(state) {
-  return { errors: state.apiError.login };
+  return {
+    errors: state.apiError.forgotPassword
+  };
 }
 
 export default connect(
   mapStateToProps,
-  { userLoginRequest }
-)(LoginPage);
+  { userForgotPasswordRequest }
+)(ForgotPasswordPage);

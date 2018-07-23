@@ -6,7 +6,11 @@ import {
   userLoginFailure,
   userLogoutSuccess,
   userConfirmEmailSuccess,
-  userConfirmEmailFailure
+  userConfirmEmailFailure,
+  userForgotPasswordSuccess,
+  userForgotPasswordFailure,
+  userVerifyResetPasswordFailure,
+  userResetPasswordFailure
 } from '../actionCreators/userActionCreator';
 import userApi from '../apis/userApi';
 import history from '../history';
@@ -45,5 +49,32 @@ export function* userConfirmEmailSaga(action) {
     yield put(userLoginSuccess(user));
   } catch (err) {
     yield put(userConfirmEmailFailure(err.response.data.errors));
+  }
+}
+
+export function* userForgotPasswordSaga(action) {
+  try {
+    yield call(userApi.forgotPassword, action.email);
+    history.push('/forgot_password_email_send');
+  } catch (err) {
+    yield put(userForgotPasswordFailure(err.response.data.errors));
+  }
+}
+
+export function* userResetPasswordSaga(action) {
+  try {
+    yield call(userApi.resetPassword, action.data);
+    history.push('/login');
+  } catch (err) {
+    yield put(userResetPasswordFailure(err.response.data.errors));
+  }
+}
+
+export function* userVerifyResetPasswordSaga(action) {
+  try {
+    yield call(userApi.verifyResetPassword, action.token);
+    history.push(`/reset_password/${action.token}`);
+  } catch (err) {
+    yield put(userVerifyResetPasswordFailure(err.response.data.errors));
   }
 }

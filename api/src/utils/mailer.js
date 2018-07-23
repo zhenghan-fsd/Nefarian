@@ -12,7 +12,7 @@ const setup = () =>
     }
   });
 
-const emailTemplate = user =>
+const confirmEmailTemplate = user =>
   `
   <h3>Hey ${user.username},</h3>
   <p>Please verify your account with us by visiting the following link.</p>
@@ -31,7 +31,32 @@ export const sendConfirmationEmail = user => {
     from: '"Nefarian Team" <zhus8251@163.com>',
     to: user.email,
     subject: 'Nefarian Account verrification instructions',
-    html: emailTemplate(user)
+    html: confirmEmailTemplate(user)
+  };
+
+  transporter.sendMail(mail);
+};
+
+const resetPasswordEmailTemplate = user =>
+  `
+  <h3>Hey ${user.username},</h3>
+  <p>Please reset your password with us by visiting the following link.</p>
+  <a href=${user.generateResetPasswordUrl()}>Reset Password</a>
+  <p>Alternatively, open the following url in your browser:</p> 
+  <p>${user.generateResetPasswordUrl()}</p>
+  <p>Thanks</p>
+  <p>Nefarian Team</p>
+  `;
+
+export const sendResetPasswordEmail = user => {
+  const transporter = setup();
+
+  // setup email data with unicode symbols
+  const mail = {
+    from: '"Nefarian Team" <zhus8251@163.com>',
+    to: user.email,
+    subject: 'Nefarian Account reset password instructions',
+    html: resetPasswordEmailTemplate(user)
   };
 
   transporter.sendMail(mail);

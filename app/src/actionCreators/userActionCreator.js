@@ -9,7 +9,16 @@ import {
   USER_LOGOUT_SUCCESS,
   USER_CONFIRM_EMAIL_REQUEST,
   USER_CONFIRM_EMAIL_SUCCESS,
-  USER_CONFIRM_EMAIL_FAILURE
+  USER_CONFIRM_EMAIL_FAILURE,
+  USER_FORGOT_PASSWORD_REQUEST,
+  USER_FORGOT_PASSWORD_SUCCESS,
+  USER_FORGOT_PASSWORD_FAILURE,
+  USER_RESET_PASSWORD_REQUEST,
+  USER_RESET_PASSWORD_SUCCESS,
+  USER_RESET_PASSWORD_FAILURE,
+  USER_VERIFY_RESET_PASSWORD_REQUEST,
+  USER_VERIFY_RESET_PASSWORD_SUCCESS,
+  USER_VERIFY_RESET_PASSWORD_FAILURE
 } from '../actionTypes';
 
 export const userSignupRequest = user => ({ type: USER_SIGNUP_REQUEST, user });
@@ -38,5 +47,41 @@ export const userConfirmEmailSuccess = () => ({
 });
 export const userConfirmEmailFailure = errors => ({
   type: USER_CONFIRM_EMAIL_FAILURE,
+  errors
+});
+
+export const userForgotPasswordRequest = email => ({
+  type: USER_FORGOT_PASSWORD_REQUEST,
+  email
+});
+export const userForgotPasswordSuccess = () => ({
+  type: USER_FORGOT_PASSWORD_SUCCESS
+});
+export const userForgotPasswordFailure = errors => ({
+  type: USER_FORGOT_PASSWORD_FAILURE,
+  errors
+});
+
+export const userResetPasswordRequest = data => ({
+  type: USER_RESET_PASSWORD_REQUEST,
+  data
+});
+export const userResetPasswordSuccess = () => ({
+  type: USER_RESET_PASSWORD_SUCCESS
+});
+export const userResetPasswordFailure = errors => ({
+  type: USER_RESET_PASSWORD_FAILURE,
+  errors
+});
+
+export const userVerifyResetPasswordRequest = token => ({
+  type: USER_VERIFY_RESET_PASSWORD_REQUEST,
+  token
+});
+export const userVerifyResetPasswordSuccess = () => ({
+  type: USER_VERIFY_RESET_PASSWORD_SUCCESS
+});
+export const userVerifyResetPasswordFailure = errors => ({
+  type: USER_VERIFY_RESET_PASSWORD_FAILURE,
   errors
 });

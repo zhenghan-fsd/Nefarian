@@ -30,12 +30,8 @@ UserSchema.methods.isValidPassword = function isValidPassword(password) {
 
 UserSchema.methods.generateToken = function generateToken() {
   return jwt.sign(
-    {
-      email: this.email,
-      username: this.username,
-      confirmed: this.confirmed
-    },
-    'jwtsecret'
+    { email: this.email, username: this.username, confirmed: this.confirmed },
+    process.env.JSONWEBTOKEN_SECRET
   );
 };
 
@@ -45,6 +41,22 @@ UserSchema.methods.setEmailConfirmation = function setEmailConfirmation() {
 
 UserSchema.methods.generateEmailConfirmationUrl = function setEmailConfirmation() {
   return `${process.env.WEB_HOST}/confirmation/${this.emailConfirmation}`;
+};
+
+UserSchema.methods.generateResetPasswordToken = function generateResetPasswordToken() {
+  return jwt.sign(
+    {
+      _id: this._id
+    },
+    process.env.JSONWEBTOKEN_SECRET,
+    { expiresIn: '1h' }
+  );
+};
+
+UserSchema.methods.generateResetPasswordUrl = function generateResetPasswordUrl() {
+  return `${
+    process.env.WEB_HOST
+  }/verify_reset_password/${this.generateResetPasswordToken()}`;
 };
 
 UserSchema.methods.userLoginResJson = function userLoginResJson() {
