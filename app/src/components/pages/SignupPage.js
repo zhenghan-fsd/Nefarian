@@ -31,69 +31,77 @@ class SignupPage extends Component {
   render() {
     const { username, email, password } = this.state.data;
     return (
-      <div className="card">
-        <div className="card-body">
-          <form onSubmit={this.onFormSubmit}>
-            <div className="form-group">
-              <label htmlFor="exampleInputusername">User Name</label>
-              <input
-                type="text"
-                className={
-                  this.state.errors.username
-                    ? 'form-control is-invalid'
-                    : 'form-control'
-                }
-                id="exampleInputusername"
-                aria-describedby="emailHelp"
-                placeholder="User Name"
-                name="username"
-                onChange={this.onTextFieldChange}
-                value={username}
-              />
-              <div className="invalid-feedback">
-                {this.state.errors.username}
+      <div className="container" style={{ height: '100vh' }}>
+        <div className="row align-items-center" style={{ height: '100vh' }}>
+          <div className="col col-xs-12 col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
+            <div className="card">
+              <div className="card-body">
+                <form onSubmit={this.onFormSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="exampleInputusername">User Name</label>
+                    <input
+                      type="text"
+                      className={
+                        this.state.errors.username
+                          ? 'form-control is-invalid'
+                          : 'form-control'
+                      }
+                      id="exampleInputusername"
+                      aria-describedby="emailHelp"
+                      placeholder="User Name"
+                      name="username"
+                      onChange={this.onTextFieldChange}
+                      value={username}
+                    />
+                    <div className="invalid-feedback">
+                      {this.state.errors.username}
+                    </div>
+                    <small id="emailHelp" className="form-text text-muted">
+                      We'll never share your email with anyone else.
+                    </small>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <input
+                      type="email"
+                      className={
+                        this.state.errors.email
+                          ? 'form-control is-invalid'
+                          : 'form-control'
+                      }
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter email"
+                      name="email"
+                      onChange={this.onTextFieldChange}
+                      value={email}
+                    />
+                    <div className="invalid-feedback">
+                      {this.state.errors.email}
+                    </div>
+                    <small id="emailHelp" className="form-text text-muted">
+                      We'll never share your email with anyone else.
+                    </small>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="exampleInputPassword1"
+                      placeholder="Password"
+                      name="password"
+                      onChange={this.onTextFieldChange}
+                      value={password}
+                    />
+                  </div>
+                  <button type="submit" className="btn btn-primary">
+                    Submit
+                  </button>
+                </form>
               </div>
-              <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
             </div>
-            <div className="form-group">
-              <label htmlFor="exampleInputEmail1">Email address</label>
-              <input
-                type="email"
-                className={
-                  this.state.errors.email
-                    ? 'form-control is-invalid'
-                    : 'form-control'
-                }
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-                name="email"
-                onChange={this.onTextFieldChange}
-                value={email}
-              />
-              <div className="invalid-feedback">{this.state.errors.email}</div>
-              <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
-            </div>
-            <div className="form-group">
-              <label htmlFor="exampleInputPassword1">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="exampleInputPassword1"
-                placeholder="Password"
-                name="password"
-                onChange={this.onTextFieldChange}
-                value={password}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </form>
+          </div>
         </div>
       </div>
     );
