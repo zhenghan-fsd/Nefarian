@@ -11,6 +11,12 @@ const DashboardPage = ({ isConfirmed }) => {
           <p>Please verify your email.</p>
         </div>
       )}
+      {isConfirmed && (
+        <div>
+          <h2>Welcome to Nefarian</h2>
+          <p>This time you can start your business.</p>
+        </div>
+      )}
     </div>
   );
 };
