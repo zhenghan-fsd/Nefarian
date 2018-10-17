@@ -28,7 +28,7 @@ export const sendConfirmationEmail = user => {
 
   // setup email data with unicode symbols
   const mail = {
-    from: '"Nefarian Team" <zhus8251@163.com>',
+    from: '"Nefarian Team" <hank17_0@163.com>',
     to: user.email,
     subject: 'Nefarian Account verrification instructions',
     html: confirmEmailTemplate(user)
@@ -53,7 +53,7 @@ export const sendResetPasswordEmail = user => {
 
   // setup email data with unicode symbols
   const mail = {
-    from: '"Nefarian Team" <zhus8251@163.com>',
+    from: '"Nefarian Team" <hank17_0@163.com>',
     to: user.email,
     subject: 'Nefarian Account reset password instructions',
     html: resetPasswordEmailTemplate(user)
